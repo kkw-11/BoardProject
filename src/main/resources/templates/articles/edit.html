@@ -1,0 +1,30 @@
+
+<div th:replace="/fragments/header.html" ::fragment-header></div>
+<title>게시판</title>
+
+
+<div class="mx-auto" style="width: 200px;">
+    <h2 >게시글 수정</h2>
+</div>
+
+<form class = "container" th:action="@{/article/register}" th:object="${article}" method="post">
+    <input type="hidden" th:field="*{id}">
+    <div clss = "mb-3">
+        <label class="form-label">제목</label>
+        <input type="text" class="form-control" name="title" th:field="*{title}">
+    </div>
+
+    <div clss = "mb-3">
+        <label class="form-label">작성자</label>
+        <input type="text" class="form-control" name="author" th:field="*{author}">
+    </div>
+    <div class = "mb-3">
+        <label class="form-label">내용</label>
+        <textarea class="form-control" rows="3" name="content" th:field="*{content}"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">제출</button>
+    <a href="#" th:href="@{/article/list}">Back</a>
+</form>
+</body>
+</html>
+

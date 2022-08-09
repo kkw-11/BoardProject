@@ -5,25 +5,40 @@
     <h2>게시판</h2>
     <div>총 건수: <span th:text="${#lists.size(articles)}"></span></div>
 
-<!--    <table class="table">-->
-<!--        <thead>-->
-<!--        <tr>-->
-<!--            <th scope="col">번호</th>-->
-<!--            <th scope="col">제목</th>-->
-<!--            <th scope="col">작성자</th>-->
-<!--        </tr>-->
-<!--        </thead>-->
-<!--        <tbody>-->
-<!--        <tr th:each="board : ${articles}">-->
-<!--            <td th:text="${articles.id}">Mark</td>-->
-<!--            <td ><a th:text="${articles.title}" th:href="@{/templates/articles/form(id=${articles.id})}">Otto</a></td>-->
-<!--            <td th:text="${articles.author}">@mdo</td>-->
-<!--        </tr>-->
-<!--        </tbody>-->
-<!--    </table>-->
-<!--    <div class="text-right">-->
-<!--        <a type="button" class="btn btn-primary" th:href="@{/templates/articles/register}">글쓰기</a>-->
-<!--    </div>-->
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">번호</th>
+            <th scope="col">제목</th>
+            <th scope="col">작성자</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="article : ${articles}">
+            <td th:text="${article.id}">Mark</td>
+            <td ><a th:text="${article.title}" th:href="@{/article/edit(id=${article.id})}">Otto</a></td>
+            <td th:text="${article.author}">@mdo</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+                <a class="page-link" href="#">Next</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="text-right">
+        <a type="button" class="btn btn-primary" th:href="@{/templates/article/register}">글쓰기</a>
+    </div>
 
 </div>
 
