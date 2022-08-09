@@ -92,24 +92,20 @@ public class ArticleController {
     public String list(Model model,
                        @PageableDefault(size = 2) Pageable pageable,
                        @RequestParam(required = false, defaultValue = "") String searchText){
-        System.out.println("hello!!!");
 
 //        Page<Article> articles = articleRepository.findAll(pageable);
         Page<Article> articles = articleRepository.findByTitleContainingOrContentContaining(searchText, searchText, pageable);
-        System.out.println(articles.getTotalElements());
+        System.out.println("total:"+articles.getTotalElements());
         int startPage = Math.max(1, articles.getPageable().getPageNumber() - 4);
         int endPage = Math.min(articles.getTotalPages(), articles.getPageable().getPageNumber() + 4);
-
-        model.addAttribute("startPage",startPage);
-        model.addAttribute("endPage",endPage);
-        model.addAttribute("boards",articles);
 
 //        List<Article> articles = articleRepository.findAll();
 //        model.addAttribute("articles", articles);
 
         model.addAttribute("startPage",startPage);
         model.addAttribute("endPage",endPage);
-        model.addAttribute("boards",articles);
+        model.addAttribute("articles",articles);
+        System.out.println("hello!!!");
 
         return "articles/list";
     }
