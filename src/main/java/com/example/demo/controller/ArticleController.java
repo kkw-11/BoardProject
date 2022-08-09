@@ -7,6 +7,9 @@ import com.example.demo.validator.ArticleValidator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -86,7 +89,9 @@ public class ArticleController {
 
 
     @GetMapping("list")
-    public String list(Model model){
+    public String list(Model model, @PageableDefault(size = 2) Pageable pageable, @RequestParam(required = false, defaultValue = "")String seachText){
+        Page<Article> boards = articleRepository.findAll(pageable);
+
         System.out.println("hello!!!");
         List<Article> articles = articleRepository.findAll();
         model.addAttribute("articles", articles);
