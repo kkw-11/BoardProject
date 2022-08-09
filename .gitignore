@@ -36,3 +36,7 @@ build/
 ###########
 hello.html
 index.html
+application.properties
+D:\_kimkiwon\demo\src\main\resources\templates\hello.html
+
+D:\_kimkiwon\demo\src\main\resources\application.properties
