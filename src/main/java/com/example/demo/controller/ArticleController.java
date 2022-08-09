@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.validation.Valid;
 import java.util.List;
 
-@Controller
 @Slf4j // Loggin Annotation
+@Controller
 @RequestMapping("article")
 public class ArticleController {
     @Autowired // 스프링 부트가 미리 생성해놓은 객체를 가져다가 자동 연결, 객체 주입
@@ -33,18 +33,32 @@ public class ArticleController {
     }
 
     @GetMapping("register")
-    public String registerArticle(){
+    public String registerArticle(Model model, @RequestParam(required = false) Long id){
+        System.out.println("get register!!");
+        if(id == null){
+            model.addAttribute("article",new Article());
+        }
+        else{
+            Article article = articleRepository.findById(id).orElse(null);
+            model.addAttribute("article", article);
+        }
+
         return "articles/register";
     }
 
     @PostMapping("register")
-    public String createArticle(@Valid ArticleForm form,  BindingResult bindingResult){
-        articleValidator.validate(form ,bindingResult);
+    public String createArticle(@Valid ArticleForm articleForm,  BindingResult bindingResult, Model model){
+
+        Article article = new Article();
+        article = articleForm.toEntity();
+        articleValidator.validate(articleForm ,bindingResult);
+        model.addAttribute("article",article);
+
         if(bindingResult.hasErrors()){
+
             return "articles/register";
         }
-        Article article = new Article();
-        article = form.toEntity();
+
         log.info(article.toString());
         articleRepository.save(article);
 
@@ -52,7 +66,7 @@ public class ArticleController {
     }
 
 
-    @GetMapping("article/edit")
+    @GetMapping("edit")
     public String createArticle(Model model, @RequestParam(required = false) Long id){
         log.info(id.toString());
         Article article = articleRepository.findById(id).orElse(null);
@@ -61,7 +75,7 @@ public class ArticleController {
         return "articles/edit";
     }
 
-    @PostMapping("article/update")
+    @PostMapping("update")
     public String updateArticle(ArticleForm articleForm){
         log.info(articleForm.toString());
         Article article = articleForm.toEntity();
