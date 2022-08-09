@@ -20,4 +20,11 @@ public class Article {
     private String content;
     @Column
     private String author;
+
+    public Article(Long id, String title, String content, String author) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
+        this.author = author;
+    }
 }
