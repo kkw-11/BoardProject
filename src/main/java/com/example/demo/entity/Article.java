@@ -46,4 +46,24 @@ public class Article {
         this.createdDate = createdDate;
         this.modifiedDate = createdDate;
     }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public void setModifiedDate(LocalDateTime modifiedDate) {
+        this.modifiedDate = modifiedDate;
+    }
 }
