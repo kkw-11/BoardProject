@@ -36,7 +36,7 @@ public class ArticleController {
     public String registerArticle(Model model, @RequestParam(required = false) Long id){
         System.out.println("get register!!");
         if(id == null){
-            model.addAttribute("article",new Article());
+            model.addAttribute("article",new Article());// 에러 페이지, exception
         }
         else{
             Article article = articleRepository.findById(id).orElse(null);
@@ -54,7 +54,7 @@ public class ArticleController {
         articleValidator.validate(articleForm ,bindingResult);
         model.addAttribute("article",article);
 
-        if(bindingResult.hasErrors()){
+        if(bindingResult.hasErrors()){//클라이언트서도 체크 가능
 
             return "articles/register";
         }
@@ -87,10 +87,10 @@ public class ArticleController {
 
     @GetMapping("list")
     public String list(Model model,
-                       @PageableDefault(size = 10) Pageable pageable,
+                       @PageableDefault(size = 2) Pageable pageable,
                        @RequestParam(required = false, defaultValue = "") String searchText){
 
-        Page<Article> articles = articleRepository.findByTitleContainingOrContentContaining(searchText, searchText, pageable);
+        Page<Article> articles = articleRepository.findByTitleContainingOrContentContaining(searchText, searchText, pageable); //필드명이 바꼈을때 오류발생가능 -> 직접 메소드작성이 좋음
         int startPage = Math.max(1, articles.getPageable().getPageNumber() - 10);
         int endPage = Math.min(articles.getTotalPages(), articles.getPageable().getPageNumber() + 10);
 
@@ -107,7 +107,7 @@ public class ArticleController {
             return "redirect:/article/list";
         }
 
-        Article article = articleRepository.findById(id).orElse(null);
+        Article article = articleRepository.findById(id).orElse(null); //orThrow로도 null처리 가능
         if(article == null){
             return "redirect:/article/list";
         }

@@ -18,7 +18,7 @@ public class ArticleValidator implements Validator {
     @Override
     public void validate(Object obj, Errors errors) {
         ArticleForm articleForm = (ArticleForm) obj;
-        if(StringUtils.isEmpty(articleForm.getTitle())){
+        if(StringUtils.isEmpty(articleForm.getTitle())){ //StringUtils 메소드 ieEmpty isBlank
             errors.rejectValue("title","key","제목을 입력하세요.");
         }
         if(StringUtils.isEmpty(articleForm.getContent())){

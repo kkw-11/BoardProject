@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @ToString
 @NoArgsConstructor
 @Getter
-@Setter
+//@Setter
 @EntityListeners(AuditingEntityListener.class)
 public class Article {
     @Id
