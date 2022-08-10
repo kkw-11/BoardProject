@@ -104,4 +104,16 @@ public class ArticleController {
         return "articles/list";
     }
 
+    @GetMapping("show")
+    public String showArticle(Model model, @RequestParam(required = false) Long id){
+        if(id == null){
+            return "articles/list";
+        }
+
+        Article article = articleRepository.findById(id).orElse(null);
+        model.addAttribute("article", article);
+
+        return "articles/show";
+    }
+
 }

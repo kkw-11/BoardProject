@@ -24,7 +24,7 @@
         <tbody>
         <tr th:each="article : ${articles}">
             <td th:text="${article.id}">Mark</td>
-            <td ><a th:text="${article.title}" th:href="@{/article/edit(id=${article.id})}">Otto</a></td>
+            <td ><a th:text="${article.title}" th:href="@{/article/show(id=${article.id})}">Otto</a></td>
             <td th:text="${article.author}">@mdo</td>
             <td>
                 <span th:text="${#temporals.format(article.createdDate, 'yyyy-MM-dd HH:mm')}"></span>
