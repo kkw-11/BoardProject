@@ -119,7 +119,7 @@ public class ArticleController {
     @GetMapping("delete")
     public String deleteArticle(Model model, @RequestParam(required = false) Long id){
         if(id == null){
-            return "articles/list";
+            return "redirect:/article/list";
         }
 
         Article article = articleRepository.findById(id).orElse(null);
