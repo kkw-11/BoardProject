@@ -123,6 +123,9 @@ public class ArticleController {
         }
 
         Article article = articleRepository.findById(id).orElse(null);
+        if(article == null){
+            return "redirect:/article/list";
+        }
 
         articleRepository.delete(article);
         return "redirect:/article/list";
