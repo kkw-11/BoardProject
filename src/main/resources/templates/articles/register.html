@@ -4,9 +4,13 @@
 <div class="mx-auto" style="width: 200px;">
         <h3>게시판 글 작성</h3>
 </div>
+
+
 <body>
+
+
 <div class="mx-auto" style="width: 1200px;">
-    <form action = "#" th:action="@{/article/register}" th:object="${article}" method="post">
+    <form action = "#" th:action="@{/article/register}" th:object="${article}" method="post" id="tmpSendFrm">
 
         <div class="form-group">
             <label for="title">제목</label>
@@ -28,16 +32,17 @@
 
         <div class="form-group">
             <label for="content">내용 </label>
-            <textarea class="form-control" id="content" rows="3" th:field="*{content}"></textarea>
+            <textarea class="form-control autosize" onkeydown="resize(this)" onkeyup="resize(this)" id="content" rows="3" th:field="*{content}" placeholder="내용을 입력하세요."></textarea>
             <div class="invalid-feedback" th:if="${#fields.hasErrors('content')}" th:errors="*{content}">
                 내용 에러
             </div>
         </div><br>
+
         <div class="text-right d-flex flex-row-reverse bd-highlight">
             <button type="submit" class="btn btn-primary">제출</button>
             <a href ="#" th:href="@{/article/list}" class="btn btn-primary">목록</a>
+            <button class="btn btn-primary" type="reset" onclick="resetBtn()">리셋</button>
         </div>
-
     </form>
 </div>
 
