@@ -6,11 +6,13 @@ import lombok.*;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @ToString
 @Getter
 @Setter
+@NoArgsConstructor
 public class ArticleForm {
 
     @NotNull
@@ -24,7 +26,10 @@ public class ArticleForm {
     @NotNull
     private String author;
 
+    private LocalDateTime createdDate;
+    private LocalDateTime modifiedDate;
+
     public Article toEntity(){
-        return new Article(id, title, content, author);
+        return new Article(id, title, content, author, createdDate, modifiedDate);
     }
 }
