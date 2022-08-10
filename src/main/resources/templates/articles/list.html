@@ -6,30 +6,27 @@
     <div>총 건수: <span th:text="${articles.totalElements}"></span></div>
     <form class="form-inline d-flex justify-content-end" method="GET" th:action="@{/article/list}">
         <div class="form-group mx-sm-3 mb-2">
-            <label for="searchText" class="sr-only">검색</label>
-            <input type="text" class="form-control" id="searchText" name = "searchText" th:value="${param.searchText}">
+            <input type="text" class="form-control" id="searchText" name="searchText" th:value="${param.searchText}">
         </div>
-        <button type="submit" class="btn btn-secondary mb-2">검색</button>
+        <button type="submit" class="btn btn-secondary">검색</button>
     </form>
 
     <table class="table">
         <thead>
-        <tr>
-            <th scope="col">번호</th>
-            <th scope="col">제목</th>
-            <th scope="col">작성자</th>
-            <th scope="col">작성일</th>
-        </tr>
+            <tr>
+                <th scope="col">번호</th>
+                <th scope="col">제목</th>
+                <th scope="col">작성자</th>
+                <th scope="col">작성일</th>
+            </tr>
         </thead>
         <tbody>
-        <tr th:each="article : ${articles}">
-            <td th:text="${article.id}">Mark</td>
-            <td ><a th:text="${article.title}" th:href="@{/article/show(id=${article.id})}">Otto</a></td>
-            <td th:text="${article.author}">@mdo</td>
-            <td>
-                <span th:text="${#temporals.format(article.createdDate, 'yyyy-MM-dd HH:mm')}"></span>
-            </td>
-        </tr>
+            <tr th:each="article : ${articles}">
+                <td th:text="${article.id}">작성자</td>
+                <td ><a th:text="${article.title}" th:href="@{/article/show(id=${article.id})}">제목</a></td>
+                <td th:text="${article.author}">@mdo</td>
+                <td th:text="${#temporals.format(article.createdDate, 'yyyy-MM-dd HH:mm')}"> 날짜 </td>
+            </tr>
         </tbody>
     </table>
 
@@ -38,21 +35,18 @@
             <li class="page-item" th:classappend="${1 == articles.pageable.pageNumber + 1} ? 'disabled'">
                 <a class="page-link" href="#" th:href="@{/article/list(page=${articles.pageable.pageNumber - 1}, searchText=${param.searchText})}" tabindex="-1" aria-disabled="true">Previous</a>
             </li>
-
             <li class="page-item " th:classappend="${i == articles.pageable.pageNumber + 1} ? 'disabled'" th:each="i: ${#numbers.sequence(startPage, endPage)} ">
                 <a class="page-link" href="#" th:href="@{/article/list(page=${i - 1}, searchText=${param.searchText})}" th:text="${i}">1</a>
             </li>
-
             <li class="page-item" th:classappend="${articles.totalPages == articles.pageable.pageNumber + 1} ? 'disabled'">
                 <a class="page-link" href="#" th:href="@{/article/list(page=${articles.pageable.pageNumber + 1}, searchText=${param.searchText})}">Next</a>
             </li>
         </ul>
     </nav>
 
-    <div class="text-right">
+    <div class="d-flex flex-row-reverse bd-highlight">
         <a type="button" class="btn btn-primary" th:href="@{/article/register}">글쓰기</a>
     </div>
-
 </div>
 
 <!-- Optional JavaScript; choose one of the two! -->

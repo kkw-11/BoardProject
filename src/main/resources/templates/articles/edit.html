@@ -22,8 +22,10 @@
         <label class="form-label">내용</label>
         <textarea class="form-control" rows="3" name="content" th:field="*{content}"></textarea>
     </div>
-    <button type="submit" class="btn btn-primary">제출</button>
-    <a href="#" th:href="@{/article/list}">Back</a>
+    <div class="text-right d-flex flex-row-reverse bd-highlight">
+        <button type="submit" class="btn btn-primary">제출</button>
+        <a href ="#" th:href="@{/article/list}" class="btn btn-primary">목록</a>
+    </div>
 </form>
 </body>
 </html>
