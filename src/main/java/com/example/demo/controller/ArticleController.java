@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
+import java.util.function.Supplier;
 
 
 /*
@@ -44,15 +45,7 @@ public class ArticleController {
     }
 
     @GetMapping("register")
-    public String registerArticle(Model model, @RequestParam(required = false) Long id){
-        System.out.println("get register!!");
-        if(id == null){
-            model.addAttribute("article",new Article());// 에러 페이지, exception
-        }
-        else{
-            Article article = articleRepository.findById(id).orElse(null);
-            model.addAttribute("article", article);
-        }
+    public String registerArticle(){
 
         return "articles/register";
     }
@@ -62,13 +55,6 @@ public class ArticleController {
 
         Article article = new Article();
         article = articleForm.toEntity();
-        articleValidator.validate(articleForm ,bindingResult);
-        model.addAttribute("article",article);
-
-        if(bindingResult.hasErrors()){//클라이언트서도 체크 가능
-
-            return "articles/register";
-        }
 
         log.info(article.toString());
         articleRepository.save(article);
@@ -80,7 +66,15 @@ public class ArticleController {
     @GetMapping("edit")
     public String createArticle(Model model, @RequestParam(required = false) Long id){
         log.info(id.toString());
-        Article article = articleRepository.findById(id).orElse(null);
+//        Article article = articleRepository.findById(id).orElse(null);
+
+        Article article = articleRepository.findById(id).orElseThrow(new Supplier<IllegalArgumentException>() {
+            @Override
+            public IllegalArgumentException get() {
+                return new IllegalArgumentException("해당 게시글이 없습니다.");
+            }
+        });
+
         model.addAttribute("article", article);
 
         return "articles/edit";
@@ -119,7 +113,15 @@ public class ArticleController {
             return "redirect:/article/list";
         }
 
-        Article article = articleRepository.findById(id).orElse(null); //orThrow로도 null처리 가능
+//        Article article = articleRepository.findById(id).orElse(null); //orThrow로도 null처리 가능
+
+        Article article = articleRepository.findById(id).orElseThrow(new Supplier<IllegalArgumentException>() {
+            @Override
+            public IllegalArgumentException get() {
+                return new IllegalArgumentException("해당 게시글이 없습니다.");
+            }
+        });
+        
         if(article == null){
             return "redirect:/article/list";
         }
@@ -134,10 +136,17 @@ public class ArticleController {
             return "redirect:/article/list";
         }
 
-        Article article = articleRepository.findById(id).orElse(null);
-        if(article == null){
-            return "redirect:/article/list";
-        }
+//        Article article = articleRepository.findById(id).orElse(null);
+        Article article = articleRepository.findById(id).orElseThrow(new Supplier<IllegalArgumentException>() {
+            @Override
+            public IllegalArgumentException get() {
+                return new IllegalArgumentException("해당 페이지가 없습니다.");
+            }
+        });
+
+//        if(article == null){
+//            return "redirect:/article/list";
+//        }
 
         articleRepository.delete(article);
         return "redirect:/article/list";
