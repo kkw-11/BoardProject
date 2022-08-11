@@ -1,16 +1,20 @@
 package com.example.demo.handler;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 
-@ControllerAdvice
-@RestController
+@ControllerAdvice //해당 패키지 어디에선 Exception이 발생하면 해당 클래스로 들어옴
+@Controller
+@Slf4j
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(value=IllegalArgumentException.class)
+    @ExceptionHandler(value=Exception.class)
     public String handlerArgumentException(IllegalArgumentException e){
-        return "<h1>" + e.getMessage() +"</h1>";
+        log.info(e.getMessage());
+        return "error/error";
     }
+
 }
