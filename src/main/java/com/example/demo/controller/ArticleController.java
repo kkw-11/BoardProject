@@ -4,7 +4,6 @@ import com.example.demo.dto.ArticleForm;
 import com.example.demo.entity.Article;
 import com.example.demo.repository.ArticleRepository;
 import com.example.demo.validator.ArticleValidator;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,10 +12,12 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Slf4j // Loggin Annotation
 @Controller
@@ -130,5 +131,8 @@ public class ArticleController {
         articleRepository.delete(article);
         return "redirect:/article/list";
     }
+
+
+
 
 }
