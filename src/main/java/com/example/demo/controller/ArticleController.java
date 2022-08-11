@@ -19,6 +19,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 
+
+/*
+To do list
+GetMapping registerArticle parameter 에러 예외 처리
+GetMapping createArticle parameter 에러 예외 처리
+GetMapping list findByTitleContainingOrContentContaining JPA 수정 -> 필드 별 메소드 생성하기
+GetMapping deleteArticle 삭제후 뒤로가기 버튼 클릭시 삭제된 페이지가 그래돌 나오는 현상 해결
+ */
+
 @Slf4j // Loggin Annotation
 @Controller
 @RequestMapping("article")
