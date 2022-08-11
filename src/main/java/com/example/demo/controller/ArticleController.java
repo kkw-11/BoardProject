@@ -4,6 +4,7 @@ import com.example.demo.dto.ArticleForm;
 import com.example.demo.entity.Article;
 import com.example.demo.repository.ArticleRepository;
 import com.example.demo.validator.ArticleValidator;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -31,12 +32,12 @@ GetMapping deleteArticle 삭제후 뒤로가기 버튼 클릭시 삭제된 페�
 @Slf4j // Loggin Annotation
 @Controller
 @RequestMapping("article")
+@RequiredArgsConstructor
 public class ArticleController {
-    @Autowired // 스프링 부트가 미리 생성해놓은 객체를 가져다가 자동 연결, 객체 주입
-    private ArticleRepository articleRepository;
+//    @Autowired // 스프링 부트가 미리 생성해놓은 객체를 가져다가 자동 연결, 객체 주입, 필드주입방식 -> @RequiredArgsConstructor로 수정
+    private final ArticleRepository articleRepository;
 
-    @Autowired
-    private ArticleValidator articleValidator;
+    private final ArticleValidator articleValidator;
     @GetMapping("test")
     public String hello(){
         return "hello";
@@ -100,6 +101,7 @@ public class ArticleController {
                        @PageableDefault(size = 2) Pageable pageable,
                        @RequestParam(required = false, defaultValue = "") String searchText){
 
+
         Page<Article> articles = articleRepository.findByTitleContainingOrContentContaining(searchText, searchText, pageable); //필드명이 바꼈을때 오류발생가능 -> 직접 메소드작성이 좋음
         int startPage = Math.max(1, articles.getPageable().getPageNumber() - 10);
         int endPage = Math.min(articles.getTotalPages(), articles.getPageable().getPageNumber() + 10);
@@ -140,8 +142,5 @@ public class ArticleController {
         articleRepository.delete(article);
         return "redirect:/article/list";
     }
-
-
-
 
 }
