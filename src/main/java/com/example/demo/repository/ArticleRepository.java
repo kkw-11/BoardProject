@@ -14,5 +14,12 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
     List<Article> findByTitleOrContent(String title, String content);
 
     Page<Article> findByTitleContainingOrContentContaining(String title, String Content, Pageable pageable);
+    Page<Article> findByTitleContaining(String title, Pageable pageable);
 
+
+    @Override
+    List<Article> findAll();
+
+    @Override
+    void delete(Article entity);
 }
