@@ -2,12 +2,10 @@ package com.example.demo.service;
 
 import com.example.demo.entity.Article;
 import com.example.demo.repository.ArticleRepository;
-import lombok.RequiredArgsConstructor;
-import org.assertj.core.api.Assertions.*;
+import com.example.demo.repository.ArticleRepositoryTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Commit;
 
 import javax.transaction.Transactional;
 
@@ -17,8 +15,10 @@ import static org.assertj.core.api.Assertions.*;
 @Transactional
 class ArticleServiceTest {
 
-    @Autowired ArticleService articleService;
-    @Autowired ArticleRepository articleRepository;
+    @Autowired
+    ArticleService articleService;
+    @Autowired
+    ArticleRepository articleRepository;
 
     @Test
     void registerTest(){
