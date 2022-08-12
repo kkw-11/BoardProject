@@ -57,10 +57,11 @@ public class ArticleController {
 
     /**
      * To do list
-     *등록후 상세 페이지로 이동 필요
+     * 등록후 상세 페이지로 이동 필요
+     *
      */
     @PostMapping("register")
-    public String createArticle(@Valid ArticleForm articleForm,  BindingResult bindingResult, Model model){
+    public String createArticle(Model model, ArticleForm articleForm){
 
         Article article = new Article();
         article = articleForm.toEntity();

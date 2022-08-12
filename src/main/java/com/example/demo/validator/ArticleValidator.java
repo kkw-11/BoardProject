@@ -8,6 +8,9 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 
+/**
+ * 서버단에서 유효성검사 사용법 숙지 필요
+ */
 @Component
 public class ArticleValidator implements Validator {
     @Override
