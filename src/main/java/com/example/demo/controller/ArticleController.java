@@ -83,9 +83,20 @@ public class ArticleController {
     @PostMapping("update")
     public String updateArticle(ArticleForm articleForm){
         log.info(articleForm.toString());
-        Article article = articleForm.toEntity();
-        articleRepository.save(article);
-        
+        Article articleEntity = articleForm.toEntity();
+
+        Article target = articleRepository.findById(articleEntity.getId()).orElseThrow(new Supplier<IllegalArgumentException>() {
+            @Override
+            public IllegalArgumentException get() {
+                return new IllegalArgumentException("해당 게시글이 없습니다.");
+            }
+        });
+
+        if(target != null){
+            articleRepository.save(articleEntity);
+        }
+
+
         return "redirect:/article/list";
     }
 
