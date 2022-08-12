@@ -5,7 +5,9 @@ import com.example.demo.repository.ArticleRepository;
 import lombok.RequiredArgsConstructor;
 import org.assertj.core.api.Assertions.*;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Commit;
 
 import javax.transaction.Transactional;
 
@@ -13,25 +15,26 @@ import static org.assertj.core.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
-@RequiredArgsConstructor
 class ArticleServiceTest {
-    ArticleService articleService;
-    ArticleRepository articleRepository;
+
+    @Autowired ArticleService articleService;
+    @Autowired ArticleRepository articleRepository;
 
     @Test
-    void registerArticleTest(){
+    void registerTest(){
         Article article = new Article();
-        article.setTitle("제목");
-        article.setContent("내용");
-        article.setAuthor("작성자");
+        article.setTitle("제목!!");
+        article.setContent("내용!!");
+        article.setAuthor("작성자!!");
         Long savedId = articleService.register(article);
-        System.out.println("hello");
 
-//        Article findedArticle = articleService.findOne(savedId).get();
-//
-//        assertThat(article.getTitle()).isEqualTo(findedArticle.getTitle());
-//        assertThat(article.getContent()).isEqualTo(findedArticle.getContent());
-//        assertThat(article.getAuthor()).isEqualTo(findedArticle.getAuthor());
+        Article findedArticle = articleService.findOne(savedId).get();
+
+        assertThat(article.getTitle()).isEqualTo(findedArticle.getTitle());
+        assertThat(article.getContent()).isEqualTo(findedArticle.getContent());
+        assertThat(article.getAuthor()).isEqualTo(findedArticle.getAuthor());
     }
+
+
 
 }

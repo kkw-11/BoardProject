@@ -21,8 +21,8 @@ public class ArticleService {
     }
 
     public Long register(Article article){
+        System.out.println("test print");
         articleRepository.save(article);
-
         return article.getId();
 
     }
