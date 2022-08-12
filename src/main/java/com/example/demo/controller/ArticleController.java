@@ -61,7 +61,7 @@ public class ArticleController {
      *
      */
     @PostMapping("register")
-    public String createArticle(Model model, ArticleForm articleForm){
+    public String createArticle(Model model, ArticleForm articleForm ){
 
         Article article = new Article();
         article = articleForm.toEntity();
@@ -69,7 +69,7 @@ public class ArticleController {
         log.info(article.toString());
         articleService.register(article);
 
-        return "redirect:/article/list";
+        return "redirect:/article/show?id=" + article.getId().toString();
     }
 
 

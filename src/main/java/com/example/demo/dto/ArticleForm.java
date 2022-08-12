@@ -18,7 +18,6 @@ public class ArticleForm {
     @NotNull
     private Long id;
     @NotNull
-    @Size(min=2, max=30)
     private String title;
     @NotNull
     private String content;

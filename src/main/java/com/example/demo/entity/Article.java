@@ -33,10 +33,11 @@ public class Article {
     private String author;
 
     @CreatedDate
-    @Column(updatable = false)
+    @Column(updatable = false, name = "created_date")
     private LocalDateTime createdDate;
 
     @LastModifiedDate
+    @Column(name = "modified_date")
     private LocalDateTime modifiedDate;
 
     public Article(Long id, String title, String content, String author, LocalDateTime createdDate, LocalDateTime modifiedDate) {
