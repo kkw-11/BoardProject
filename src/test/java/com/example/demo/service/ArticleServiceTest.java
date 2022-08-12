@@ -34,7 +34,19 @@ class ArticleServiceTest {
         assertThat(article.getContent()).isEqualTo(findedArticle.getContent());
         assertThat(article.getAuthor()).isEqualTo(findedArticle.getAuthor());
     }
+    @Test
+    void findOneTest(){
+        Article article = new Article();
+        article.setTitle("제목!!");
+        article.setContent("내용!!");
+        article.setAuthor("작성자!!");
+        Long savedId = articleService.register(article);
+        Long findedFristId = article.getId();
+        Long findedSecondId = articleService.findOne(article.getId()).orElse(null).getId();
 
+        assertThat(findedFristId).isEqualTo(findedSecondId);
+
+    }
 
 
 }
