@@ -3,13 +3,15 @@ package com.example.demo.controller;
 import com.example.demo.dto.ArticleForm;
 import com.example.demo.entity.Article;
 import com.example.demo.repository.ArticleRepository;
+import com.example.demo.service.ArticleService;
 import com.example.demo.validator.ArticleValidator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -36,13 +38,16 @@ GetMapping deleteArticle 삭제후 뒤로가기 버튼 클릭시 삭제된 페�
 @RequiredArgsConstructor
 public class ArticleController {
 //    @Autowired // 스프링 부트가 미리 생성해놓은 객체를 가져다가 자동 연결, 객체 주입, 필드주입방식 -> @RequiredArgsConstructor로 수정
-    private final ArticleRepository articleRepository;
 
     private final ArticleValidator articleValidator;
+
+    private final ArticleService articleService;
+
     @GetMapping("test")
     public String hello(){
-        return "hello";
+        return "index";
     }
+
 
     @GetMapping("register")
     public String registerArticle(){
@@ -50,6 +55,10 @@ public class ArticleController {
         return "articles/register";
     }
 
+    /**
+     * To do list
+     *등록후 상세 페이지로 이동 필요
+     */
     @PostMapping("register")
     public String createArticle(@Valid ArticleForm articleForm,  BindingResult bindingResult, Model model){
 
@@ -57,7 +66,7 @@ public class ArticleController {
         article = articleForm.toEntity();
 
         log.info(article.toString());
-        articleRepository.save(article);
+        articleService.register(article);
 
         return "redirect:/article/list";
     }
@@ -68,7 +77,7 @@ public class ArticleController {
         log.info(id.toString());
 //        Article article = articleRepository.findById(id).orElse(null);
 
-        Article article = articleRepository.findById(id).orElseThrow(new Supplier<IllegalArgumentException>() {
+        Article article = articleService.findOne(id).orElseThrow(new Supplier<IllegalArgumentException>() {
             @Override
             public IllegalArgumentException get() {
                 return new IllegalArgumentException("해당 게시글이 없습니다.");
@@ -85,7 +94,7 @@ public class ArticleController {
         log.info(articleForm.toString());
         Article articleEntity = articleForm.toEntity();
 
-        Article target = articleRepository.findById(articleEntity.getId()).orElseThrow(new Supplier<IllegalArgumentException>() {
+        Article target = articleService.findOne(articleEntity.getId()).orElseThrow(new Supplier<IllegalArgumentException>() {
             @Override
             public IllegalArgumentException get() {
                 return new IllegalArgumentException("해당 게시글이 없습니다.");
@@ -93,7 +102,7 @@ public class ArticleController {
         });
 
         if(target != null){
-            articleRepository.save(articleEntity);
+            articleService.register(articleEntity);
         }
 
 
@@ -107,7 +116,8 @@ public class ArticleController {
                        @RequestParam(required = false, defaultValue = "") String searchText){
 
 
-        Page<Article> articles = articleRepository.findByTitleContainingOrContentContaining(searchText, searchText, pageable); //필드명이 바꼈을때 오류발생가능 -> 직접 메소드작성이 좋음
+//        Page<Article> articles = articleRepository.findByTitleContainingOrContentContaining(searchText, searchText, pageable); //필드명이 바꼈을때 오류발생가능 -> 직접 메소드작성이 좋음
+        Page<Article> articles = articleService.findTitleAndPage(searchText, pageable);
         int startPage = Math.max(1, articles.getPageable().getPageNumber() - 10);
         int endPage = Math.min(articles.getTotalPages(), articles.getPageable().getPageNumber() + 10);
 
@@ -126,7 +136,7 @@ public class ArticleController {
 
 //        Article article = articleRepository.findById(id).orElse(null); //orThrow로도 null처리 가능
 
-        Article article = articleRepository.findById(id).orElseThrow(new Supplier<IllegalArgumentException>() {
+        Article article = articleService.findOne(id).orElseThrow(new Supplier<IllegalArgumentException>() {
             @Override
             public IllegalArgumentException get() {
                 return new IllegalArgumentException("해당 게시글이 없습니다.");
@@ -148,18 +158,15 @@ public class ArticleController {
         }
 
 //        Article article = articleRepository.findById(id).orElse(null);
-        Article article = articleRepository.findById(id).orElseThrow(new Supplier<IllegalArgumentException>() {
+        Article article = articleService.findOne(id).orElseThrow(new Supplier<IllegalArgumentException>() {
             @Override
             public IllegalArgumentException get() {
                 return new IllegalArgumentException("해당 페이지가 없습니다.");
             }
         });
 
-//        if(article == null){
-//            return "redirect:/article/list";
-//        }
 
-        articleRepository.delete(article);
+        articleService.deleteOne(article);
         return "redirect:/article/list";
     }
 
