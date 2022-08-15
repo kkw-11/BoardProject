@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.function.Supplier;
@@ -39,14 +40,9 @@ GetMapping deleteArticle 삭제후 뒤로가기 버튼 클릭시 삭제된 페�
 public class ArticleController {
 //    @Autowired // 스프링 부트가 미리 생성해놓은 객체를 가져다가 자동 연결, 객체 주입, 필드주입방식 -> @RequiredArgsConstructor로 수정
 
+
     private final ArticleValidator articleValidator;
-
     private final ArticleService articleService;
-
-    @GetMapping("test")
-    public String hello(){
-        return "index";
-    }
 
 
     @GetMapping("register")
@@ -117,7 +113,6 @@ public class ArticleController {
                        @RequestParam(required = false, defaultValue = "") String searchText){
 
 
-//        Page<Article> articles = articleRepository.findByTitleContainingOrContentContaining(searchText, searchText, pageable); //필드명이 바꼈을때 오류발생가능 -> 직접 메소드작성이 좋음
         Page<Article> articles = articleService.findTitleAndPage(searchText, pageable);
         int startPage = Math.max(1, articles.getPageable().getPageNumber() - 10);
         int endPage = Math.min(articles.getTotalPages(), articles.getPageable().getPageNumber() + 10);
