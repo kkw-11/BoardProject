@@ -1,10 +1,9 @@
-package com.example.demo.config;
+package com.example.board.config;
 
-import com.example.demo.repository.ArticleRepository;
-import com.example.demo.service.ArticleService;
+import com.example.board.repository.ArticleRepository;
+import com.example.board.service.ArticleService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Controller;
 
 @Configuration
 public class SpringConfig {

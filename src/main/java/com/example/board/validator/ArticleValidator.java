@@ -1,7 +1,6 @@
-package com.example.demo.validator;
+package com.example.board.validator;
 
-import com.example.demo.dto.ArticleForm;
-import com.example.demo.entity.Article;
+import com.example.board.dto.ArticleForm;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;

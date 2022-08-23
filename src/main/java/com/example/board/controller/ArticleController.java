@@ -1,27 +1,21 @@
-package com.example.demo.controller;
+package com.example.board.controller;
 
-import com.example.demo.dto.ArticleForm;
-import com.example.demo.entity.Article;
-import com.example.demo.repository.ArticleRepository;
-import com.example.demo.service.ArticleService;
-import com.example.demo.validator.ArticleValidator;
+import com.example.board.dto.ArticleForm;
+import com.example.board.entity.Article;
+import com.example.board.service.ArticleService;
+import com.example.board.validator.ArticleValidator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
-import javax.validation.Valid;
 import java.util.function.Supplier;
 
 

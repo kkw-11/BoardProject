@@ -1,12 +1,10 @@
-package com.example.demo.service;
+package com.example.board.service;
 
-import com.example.demo.entity.Article;
-import com.example.demo.repository.ArticleRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.board.entity.Article;
+import com.example.board.repository.ArticleRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import javax.swing.text.html.Option;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;

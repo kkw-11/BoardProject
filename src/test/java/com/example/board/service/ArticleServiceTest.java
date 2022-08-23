@@ -1,8 +1,7 @@
-package com.example.demo.service;
+package com.example.board.service;
 
-import com.example.demo.entity.Article;
-import com.example.demo.repository.ArticleRepository;
-import com.example.demo.repository.ArticleRepositoryTest;
+import com.example.board.entity.Article;
+import com.example.board.repository.ArticleRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

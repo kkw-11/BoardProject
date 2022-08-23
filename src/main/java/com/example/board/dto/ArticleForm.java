@@ -1,11 +1,10 @@
-package com.example.demo.dto;
+package com.example.board.dto;
 
 
-import com.example.demo.entity.Article;
+import com.example.board.entity.Article;
 import lombok.*;
 
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
